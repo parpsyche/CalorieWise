@@ -1,4 +1,4 @@
-# Calorie Counter App
+# CalorieWise - Calorie Counter App
 The Calorie Counter App is a web-based application built in Python Django that allows users to track their daily calorie intake. The app utilizes the MyFitnessPal API to access and retrieve calorie details of various food items, making it easy for users to keep track of their nutrition goals.
 
 ## Features

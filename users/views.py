@@ -87,9 +87,24 @@ def addfood(request):
 
     return redirect('/home')
 
+@csrf_exempt
+@login_required(login_url='/login/')
+def removefood(request):
+    user = User.objects.get(username = request.COOKIES.get('user'))
+    food_id = request.GET.get('food')
+    (Items.objects.get(id = food_id,user = user).delete())
+    return redirect('/home')
 
 @csrf_exempt
 @login_required(login_url='/login/')
 def logout_user(request):
     logout(request)
     return render(request,'login.html')
+
+#TODO
+#recipe
+#all nutritional values
+#passed day food 
+#required food intake calories
+#required nutrition
+#logout

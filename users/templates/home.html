@@ -1,59 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<body>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+    }
+    #iooe{
+      float:none;
+      position:relative;
+      right:1%;
+    }
+    #i6txg{
+      position:relative;
+      float:right;
+    }
+
+  </style>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>My App</title>
+    <title>My App
+    </title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet"/>
-  </head>
-  <br>
-  <body class="bg-gray-100">
-    <div class="container mx-auto px-4">
+    <br/>
+    <form method="post" action="/logout/">{% csrf_token %}
+    <div class="flex justify-end" id="i2z2">
+      <button type="submit" class="py-3 px-3 rounded-lg bg-gray-800 text-white font-bold text-sm uppercase shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50" id="iooe">Logout</button>
+    </div></form>
+    <div class="container mx-auto px-3">
       <section class="flex justify-center items-center">
         <div class="max-w-sm w-full rounded-lg bg-white p-6 shadow-lg">
           <form method="post">
             <div class="relative mb-4">
-              <input type="text" placeholder="Food item Name" id="food" name="food" class="block w-full py-3 px-4 rounded-lg shadow-sm bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"/>
+              <input type="text" placeholder="Food item Name" id="food" name="food" class="block w-full py-3 px-3 rounded-lg shadow-sm bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"/>
             </div>
-            <button type="submit" class="inline-block w-full py-3 px-4 rounded-lg bg-gray-800 text-white font-bold text-sm uppercase shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50">Get details</button>
+            <button type="submit" class="inline-block w-full py-3 px-3 rounded-lg bg-gray-800 text-white font-bold text-sm uppercase shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50">Get details</button>
           </form>
         </div>
       </section>
       {% if show %}
-      <br>
-      <section class="flex justify-center items-center">
+      <br/>
+      <section class="flex justify-center items-center" id="img17">
         <div class="max-w-sm w-full rounded-lg bg-white p-6 shadow-lg">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">{{food}}</h3>
+          <h3 class="text-lg font-bold text-gray-900 mb-4 capitalize" id="i8ml7">{{food}}
+          </h3>
           <ul class="mb-4">
-            <li class="text-gray-700">{{unit}} - {{value}}</li>
-            <li class="text-gray-700">Protein - {{protein}}</li>
+            <li class="text-gray-700 capitalize" id="ivxps">{{unit}} - {{value}}
+            </li>
+            <li class="text-gray-700">Protein - {{protein}}
+            </li>
           </ul>
           <form method="post" action="/addfood/?unit={{unit}}&food={{food}}&value={{value}}">{% csrf_token %}
-            <button type="submit" class="w-full py-3 px-4 rounded-lg bg-gray-800 text-white font-bold text-sm uppercase shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50">Add to diet</button>
+            <button type="submit" class="w-full py-3 px-3 rounded-lg bg-gray-800 text-white font-bold text-sm uppercase shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50" id="i3u2h">Add to diet</button>
           </form>
         </div>
       </section>
       {% endif %}
       {% if items %}
-      <br>
+      <br/>
       <section class="flex justify-center items-center">
         <div class="max-w-sm w-full rounded-lg bg-white p-6 shadow-lg">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">User Calorie Details</h3>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Meal Calorie Details
+          </h3>
           <ul>
             {% for i in items %}
-            <li class="text-gray-700">{{i.name}} - {{i.calorie}} cal.
-              <form method="post" action="/removefood/?food_id={{i.id}}">{% csrf_token %}
-                <button type="submit" class="w-full py-3 px-4 rounded-lg bg-gray-800 text-white font-bold text-sm uppercase shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50">x</button>
-              </form>
+            <form method="post" action="/removefood/?food={{i.id}}">{% csrf_token %}
+            <li class="text-gray-700 capitalize py-2" id="ih6rc">{{i.name}} - {{i.calorie}} Cal.
+              <button type="submit" class="py-1.5 px-3 rounded-lg bg-gray-800 text-white text-sm shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50" id="i6txg">Delete</button>
             </li>
-            
+          </form>
             {% endfor %}
-            <b><li class="text-gray-700">TOTAL- {{total}} cal.</li></b>
+            <b>
+              <li class="text-gray-700">TOTAL- {{total}} cal.
+              </li>
+            </b>
           </ul>
         </div>
       </section>
       {% endif %}
     </div>
-    <script src="https://cdn.tailwindcss.com"></script>
   </body>
-</html>

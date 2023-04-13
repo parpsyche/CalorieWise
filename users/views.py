@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 @api_view(['GET','POST'])
+@csrf_exempt
 def login_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -28,7 +29,7 @@ def login_register(request):
             red = redirect('/new_user/')
             red.set_cookie('user',username)
             return red 
-        red = render(request,'home.html')
+        red = redirect('/home')
         red.set_cookie('user',username)
         return red
     return render(request,'login.html')
@@ -91,15 +92,15 @@ def addfood(request):
 @login_required(login_url='/login/')
 def removefood(request):
     user = User.objects.get(username = request.COOKIES.get('user'))
-    food_id = request.GET.get('food')
-    (Items.objects.get(id = food_id,user = user).delete())
+    food = request.GET.get('food')
+    (Items.objects.get(id = food,user = user).delete())
     return redirect('/home')
 
 @csrf_exempt
 @login_required(login_url='/login/')
 def logout_user(request):
     logout(request)
-    return render(request,'login.html')
+    return redirect('/login/')
 
 #TODO
 #recipe
